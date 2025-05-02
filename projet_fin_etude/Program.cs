@@ -16,6 +16,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAutoMapper(typeof(AutoMapperConfiguration));
 builder.Services.AddScoped<ICommonRepository<JobApplicant>, JobApplicantRepository>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("FrontEndPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000", "http://localhost:3001").AllowAnyHeader().AllowAnyMethod();
+    });
+});
 
 builder.Services.AddSwaggerGen(options =>
 {
